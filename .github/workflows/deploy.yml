@@ -1,24 +1,23 @@
 name: Deploy website
 
-
 on:
-  
   push:
     branches: [ "main" ]
  
 jobs:
-
   deploy:
-
     runs-on: ubuntu-latest
-
+    env:
+    AWS_ACCESS_KEY_ID:${{ key }}
+    AWS_SECRET_ACCESS_KEY: secretkey
+    AWS_SESSION_TOKEN: sessiontoken
+    AWS_REGION: eu-central-1
     steps:
-      
       - uses: actions/checkout@v3
-      
       - name: deploy website
-        run: 
-        echo "Hello!"
+        run: |
+        echo "start upload to s3"
+        aws s3 cp index.html s3://nice-place-paca-bucket-213421/ --acl public-read
 
 
 
